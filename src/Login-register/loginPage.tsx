@@ -1,26 +1,34 @@
-import './LoginPage.css'
+import  './LoginPage.css'
+import { useNavigate } from 'react-router-dom';
+import React, { FormEvent } from 'react';
 
 const LoginPage= () =>{
-
+    const navigate = useNavigate();
     
+    const handleLogin = (event:FormEvent<HTMLFormElement>) => {
+        event.preventDefault(); // ป้องกันการ reload หน้าจอ
+        navigate('/mainpage'); // เปลี่ยนเส้นทางไปยัง /mainpage
+      };
+
     return(
-        <>
-            <div className="container">
-                <div className="Left"></div>
-                <form className="Right">
-                    <div>
-                        <label> email หรือ username</label>
-                        <input type=''></input>
+        <div className='body'>
+            <div className = "container-login">
+                <h1>เข้าสู่ระบบ</h1>
+                <form onSubmit={handleLogin}>
+                    <div className=''>
+                        <label> อีเมล</label>
+                        <input type='text' placeholder='ชื่อผู้ใช้'></input>
                     </div>
                     <div>
                         <label> รหัสผ่าน</label>
-                        <input type=''></input>
+                        <input type='text' placeholder='รหัสผ่าน'></input>
                     </div>
-                    <button type='submit'>เข้าสู่ระบบ</button>
+                    <div>
+                        <button type='submit'>เข้าสู่ระบบ</button>
+                    </div>
                 </form>
-                
             </div>
-        </>
+        </div>
     )
         
     

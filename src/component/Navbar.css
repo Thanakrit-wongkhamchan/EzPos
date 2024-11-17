@@ -1,13 +1,14 @@
 Content{
     background-color: white;
     padding: 24;
-
+    width: 100%; /* ให้เต็มหน้าจอ */
 }
 
 
 .Block-content{
     margin: 28px 48px 20px 48px;
 }
+
 footer{
     text-align: center;
 }

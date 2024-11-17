@@ -1,9 +1,9 @@
 import React from 'react';
 import {  Layout, Menu, theme } from 'antd';
-import { Color } from 'antd/es/color-picker';
 import './Navbar.css'
 
 const { Header, Content, Footer } = Layout;
+
 const items = new Array(3).fill(null).map((_, index) => ({
   key: String(index + 1),
   label: `gfaaf ${index + 1}`,
@@ -17,35 +17,30 @@ const Navbar = () => {
   return (
     <>
     <Layout>
-      <Header
+    <Header
         style={{
           position: 'sticky',
           top: 0,
-          zIndex: 0,
+          zIndex: 1,
           width: '100%',
           display: 'flex',
           alignItems: 'center',
         }}
       >
+        <div/>
         <Menu
-        theme="dark"
-        mode="horizontal"
-        defaultSelectedKeys={['1']}
-        items={items}
-        style={{
-          flex: 1,
-          minWidth: 10,
-        }}>
-          <div
+          theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={['2']}
+          items={items}
           style={{
-            
-          }}>
-            fasfsaf
-          </div>
-        </Menu>
-          
+            flex: 1,
+            minWidth: 0,
+          }}
+        />
       </Header>
       <Content
+      
         style={{
           minHeight: '85.5vh'
         }}
@@ -53,7 +48,7 @@ const Navbar = () => {
         <div 
           className='Block-content'
           style={{
-            
+            minHeight: 200,
             padding: 24,
             backgroundColor: "#fff",
             borderRadius: borderRadiusLG,
@@ -65,9 +60,7 @@ const Navbar = () => {
         </div>
       </Content>
       <Footer
-        // style={{
-        //   minHeight:'10vh'
-        // }}
+       
         > 
           EzPos ©{new Date().getFullYear()} Created by Soya && Kawaii
         </Footer>
