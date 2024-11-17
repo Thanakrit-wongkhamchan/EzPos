@@ -1,13 +1,13 @@
 import  './LoginPage.css'
 import { useNavigate } from 'react-router-dom';
-import React, { FormEvent } from 'react';
+import { FormEvent } from 'react';
 
 const LoginPage= () =>{
     const navigate = useNavigate();
     
     const handleLogin = (event:FormEvent<HTMLFormElement>) => {
         event.preventDefault(); // ป้องกันการ reload หน้าจอ
-        navigate('/mainpage'); // เปลี่ยนเส้นทางไปยัง /mainpage
+        navigate('/dashboard'); // เปลี่ยนเส้นทางไปยัง /mainpage
       };
 
     return(
