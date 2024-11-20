@@ -21,7 +21,7 @@ const LoginPage= () =>{
                     </div>
                     <div>
                         <label> รหัสผ่าน</label>
-                        <input type='text' placeholder='รหัสผ่าน'></input>
+                        <input type='password' placeholder='รหัสผ่าน'></input>
                     </div>
                     <div>
                         <button type='submit'>เข้าสู่ระบบ</button>
