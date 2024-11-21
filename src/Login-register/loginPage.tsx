@@ -7,7 +7,7 @@ const LoginPage= () =>{
     
     const handleLogin = (event:FormEvent<HTMLFormElement>) => {
         event.preventDefault(); // ป้องกันการ reload หน้าจอ
-        navigate('/dashboard'); // เปลี่ยนเส้นทางไปยัง /mainpage
+        navigate('/app/dashboard'); // เปลี่ยนเส้นทางไปยัง /mainpage
       };
 
     return(

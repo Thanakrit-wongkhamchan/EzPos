@@ -1,31 +1,8 @@
-import {useNavigate } from 'react-router-dom';
-const ListItem = () =>{
 
-    const navigate = useNavigate();
-    
-    const ManageItem =() =>{
-        navigate('manageItem');
-    };
-    
+const ListItem = () =>{
+   
     return(
         <>  
-            <div 
-                onClick={ManageItem}
-                    style={{
-                            width: 90,
-                            height: 30,
-                            background: 'green',
-                            color: 'white',
-                            fontSize: 15,
-                            borderRadius: 10,
-                            display: 'flex', // ใช้ Flexbox
-                            justifyContent: 'center', // จัดข้อความให้อยู่กึ่งกลางแนวนอน
-                            alignItems: 'center', // จัดข้อความให้อยู่กึ่งกลางแนวตั้ง
-                            marginLeft: 'auto',
-                            marginBottom: 20
-                        }}> 
-                จัดการเมนู
-            </div>
             <div className='container'
                 style={{
                     display: 'flex',

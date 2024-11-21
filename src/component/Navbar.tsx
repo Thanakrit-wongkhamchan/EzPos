@@ -1,130 +1,187 @@
-import { Flex, Layout, Menu, theme } from "antd";
+import { Layout, Menu, Button, ConfigProvider } from "antd";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import "./Navbar.css";
 import { Outlet, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import type { MenuProps } from "antd";
+import {
+  PieChartOutlined,
+  TeamOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 
 const { Header, Content, Footer, Sider } = Layout;
 
-const items = [
-  { key: "1", label: "แดชบอร์ด" },
-  { key: "2", label: "รายการสินค้า" },
-  { key: "3", label: "คำสั่งซื้อ" },
+type MenuItem = Required<MenuProps>["items"][number];
+function getItem(
+  label: React.ReactNode,
+  key: React.Key,
+  icon?: React.ReactNode,
+  children?: MenuItem[]
+): MenuItem {
+  return {
+    key,
+    icon,
+    children,
+    label,
+  } as MenuItem;
+}
+
+const items: MenuItem[] = [
+  getItem("หน้าหลัก", "1", <PieChartOutlined />),
+  getItem("การใช้งาน", "sub1", <UserOutlined />, [
+    getItem("รายการสินค้า", "2"),
+    getItem("คำสั่งซื้อ", "3"),
+  ]),
+  getItem("การตั้งค่า", "sub2", <TeamOutlined />, [
+    getItem("จัดการเมนู", "4"),
+    getItem("คำสั่งซื้อทั้งหมด", "5"),
+  ]),
 ];
 
 const Navbar = () => {
   const navigate = useNavigate();
   const menuDashboard = () => {
-    navigate("/dashBoard");
+    navigate("/app/dashBoard");
   };
   const menuListItem = () => {
-    navigate("/listItem");
+    navigate("/app/listItem");
   };
   const menuOrderItem = () => {
-    navigate("/orderItem");
+    navigate("/app/orderItem");
   };
   const logout = () => {
-    navigate("/login");
+    navigate("/app/login");
+  };
+  const ManageItem = () => {
+    navigate("/app/manageItem");
   };
 
-  // const titleName = (e,Pname)=>{
-  //   const Pname =e.map
+  const changeComponent = (e: any) => {
+    const key = e.key;
+    if (key === "1") {
+      menuDashboard();
+    } else if (key === "2") {
+      menuListItem();
+    } else if (key === "3") {
+      menuOrderItem();
+    } else if (key === "4") {
+      ManageItem();
+    }
+    return;
+  };
 
-  // }
-  const {
-    token: {},
-  } = theme.useToken();
+  const [collapsed, setCollapsed] = useState(false);
+  const toggleSider = () => {
+    setCollapsed(!collapsed); // สลับสถานะเปิด/ปิด Sider
+  };
 
   return (
-    <Layout>
-      <Sider breakpoint="lg" collapsedWidth="0">
-        <div
-          style={{
-            display:'flex',
-            alignItems:'center',
-            color: "white",
-            fontSize: 40,
-            justifyContent: "center",
-            margin:10         
-          }}
-        >
-          EzPos
-        </div>
-        <Menu
-          onClick={(e) => {
-            if (e.key === "1") {
-              menuDashboard();
-            } else if (e.key === "2") {
-              menuListItem();
-            } else if (e.key === "3") {
-              menuOrderItem();
-            }
-            return;
-          }}
-          theme="dark"
-          defaultSelectedKeys={["1"]}
-          items={items}
-          style={{
-            flex: 1,
-            minWidth: 0,
-          }}
-        />
-      </Sider>
+    <ConfigProvider
+      theme={{
+        token: {
+          // Seed Token
+          colorPrimary: "#00521e",
+
+        },
+      }}
+    >
       <Layout>
-        <Header
-          style={{
-            padding: 0,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between", // จัดข้อความให้อยู่กึ่งกลางแนวนอน
-          }}
+        <Sider
+          breakpoint="lg"
+          collapsedWidth="0"
+          collapsible
+          collapsed={collapsed}
+          onCollapse={(value) => setCollapsed(value)}
+          trigger={null} // ปิดการแสดงปุ่ม toggle
         >
-          <h1
+          <div
             style={{
-              marginLeft:'2%',
+              display: "flex",
+              alignItems: "center",
               color: "white",
+              fontSize: 40,
+              justifyContent: "center",
+              margin: 10,
             }}
           >
-            ชื่อของหน้า
-          </h1>
-          <div
-            className="logout Button"
-            onClick={logout}
-            style={{
-              width: 50,
-              height: 30,
-              background: "white",
-              color: "red",
-              fontSize: 10,
-              borderRadius: 10,
-              display: "flex", // ใช้ Flexbox
-              justifyContent: "center", // จัดข้อความให้อยู่กึ่งกลางแนวนอน
-              alignItems: "center", // จัดข้อความให้อยู่กึ่งกลางแนวตั้ง
-              marginRight:"2%"
-            }}
-          >
-            Logout
+            EzPos
           </div>
-        </Header>
-        <Content
-          style={{
-            minHeight: "85.4vh",
-          }}
-        >
-          <div
-            className="Block-content"
+          <Menu
+            onClick={changeComponent}
+            mode="inline"
+            theme="dark"
+            defaultSelectedKeys={(["1"])}
+              
+            items={items}
+          />
+        </Sider>
+        <Layout>
+          <Header
             style={{
-              minHeight: 200,
-              padding: 24,
-              backgroundColor: "#fff",
+              padding: 0,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between", // จัดข้อความให้อยู่กึ่งกลางแนวนอน
             }}
           >
-            <Outlet></Outlet>
-          </div>
-        </Content>
-        <Footer>
-          EzPos ©{new Date().getFullYear()} Created by Soya && Kawaii
-        </Footer>
+            <Button
+              type="primary"
+              onClick={toggleSider}
+              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              style={{
+                marginBottom: "20px",
+              }}
+            ></Button>
+            <h1
+              style={{
+                marginRight: "80%",
+                color: "white",
+              }}
+            >
+              ชื่อของหน้า
+            </h1>
+            <div
+              className="logout Button"
+              onClick={logout}
+              style={{
+                width: 50,
+                height: 30,
+                background: "white",
+                color: "red",
+                fontSize: 10,
+                borderRadius: 10,
+                display: "flex", // ใช้ Flexbox
+                justifyContent: "center", // จัดข้อความให้อยู่กึ่งกลางแนวนอน
+                alignItems: "center", // จัดข้อความให้อยู่กึ่งกลางแนวตั้ง
+                marginRight: "2%",
+              }}
+            >
+              Logout
+            </div>
+          </Header>
+          <Content
+            style={{
+              minHeight: "85.4vh",
+            }}
+          >
+            <div
+              className="Block-content"
+              style={{
+                minHeight: 200,
+                padding: 24,
+                backgroundColor: "#fff",
+              }}
+            >
+              <Outlet></Outlet>
+            </div>
+          </Content>
+          <Footer>
+            EzPos ©{new Date().getFullYear()} Created by Soya && Kawaii
+          </Footer>
+        </Layout>
       </Layout>
-    </Layout>
+    </ConfigProvider>
   );
 };
 export default Navbar;
