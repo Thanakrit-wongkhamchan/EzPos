@@ -41,20 +41,26 @@ const items: MenuItem[] = [
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [nameComponent,setNameComponent] = useState("")
   const menuDashboard = () => {
     navigate("/app/dashBoard");
+    setNameComponent("แดชบอร์ด")
   };
   const menuListItem = () => {
     navigate("/app/listItem");
+    setNameComponent("รายการสินค้า")
   };
   const menuOrderItem = () => {
     navigate("/app/orderItem");
+    setNameComponent("คำสั่งซื้อ")
   };
   const logout = () => {
-    navigate("/app/login");
+    navigate("/login");
+    setNameComponent("แดชบอร์ด")
   };
   const ManageItem = () => {
     navigate("/app/manageItem");
+    setNameComponent("จัดการเมนู")
   };
 
   const changeComponent = (e: any) => {
@@ -139,7 +145,7 @@ const Navbar = () => {
                 color: "white",
               }}
             >
-              ชื่อของหน้า
+              {nameComponent}
             </h1>
             <div
               className="logout Button"
