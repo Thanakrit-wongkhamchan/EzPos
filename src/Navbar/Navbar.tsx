@@ -36,6 +36,7 @@ const items: MenuItem[] = [
   getItem("การตั้งค่า", "sub2", <TeamOutlined />, [
     getItem("จัดการเมนู", "4"),
     getItem("คำสั่งซื้อทั้งหมด", "5"),
+    getItem("จัดการหมวดหมู่", "6"),
   ]),
 ];
 
@@ -63,6 +64,11 @@ const Navbar = () => {
     setNameComponent("จัดการเมนู")
   };
 
+  const ManageCatagory = ()=>{
+    navigate('/app/manageCatagory')
+    setNameComponent("จัดการหมวดหมู่")
+  }
+
   const changeComponent = (e: any) => {
     const key = e.key;
     if (key === "1") {
@@ -73,6 +79,8 @@ const Navbar = () => {
       menuOrderItem();
     } else if (key === "4") {
       ManageItem();
+    } else if (key === "6") {
+      ManageCatagory();
     }
     return;
   };

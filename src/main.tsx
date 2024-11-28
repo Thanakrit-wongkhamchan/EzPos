@@ -10,6 +10,8 @@ import Dashboard from './component/Dashboard.js';
 import WaitItem from './component/OrderItem.js';
 import ManageItem from './component/ManageItem.js';
 import AddNewItem from './component/sub-ManageItem/AddNewItem.js';
+import LoginError from './Login-register/LoginError.js';
+import ManageCatagory from './component/ManageCatagory.js';
 import './index.css'
 
 createRoot(document.getElementById('root')!).render(
@@ -26,11 +28,12 @@ createRoot(document.getElementById('root')!).render(
             <Route path='/app/orderItem' element={<WaitItem></WaitItem>}></Route>
             <Route path='/app/manageItem' element={<ManageItem></ManageItem>}></Route>
             <Route path='/app/manageItem/addNewItem' element={<AddNewItem></AddNewItem>}></Route>
+            <Route path='/app/manageCatagory' element={<ManageCatagory></ManageCatagory>}></Route>
             
           </Route>
 
           <Route path='/login' element={<LoginPage></LoginPage>}></Route>
-          
+          <Route path='/loginError' element={<LoginError></LoginError>}> </Route>
           
         </Routes>
     </Router>

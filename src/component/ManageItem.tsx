@@ -1,5 +1,5 @@
 import { Table, Space } from "antd";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
@@ -8,47 +8,71 @@ const ManageItem = () => {
   const newItem = location.state?.newItem;
   
   const ItemsData = [
-    { key: 1, name: "ลาเต้", price: 500 },
-    { key: 2, name: "กาบ", price: 30 },
+    { key: 1, name: "ลาเต้", price: 500 , catagory: "กาแฟ"},
+    { key: 2, name: "กาบ", price: 30 , catagory: "กาแฟ"},
   ];
-  const [items,] = useState(
-    newItem ? : ItemsData[newItem, ...ItemsData] 
-  )
-
-  // const onAddNewItem=(newItem:any) =>{
-  //   setItem((oldItem) =>{
-  //     return  [newItem,...oldItem]
-  //   })
-  // }
-  
+  const [items,setItems] = useState(ItemsData)
+  useEffect(() => {
+    if (newItem) {
+      setItems((prevItems) => {
+        const existingIndex = prevItems.findIndex(
+          (item) => item.key === newItem.key
+        );
+        if (existingIndex !== -1) {
+          // แก้ไขข้อมูลในรายการเดิม
+          const updatedItems = [...prevItems];
+          updatedItems[existingIndex] = newItem;
+          return updatedItems;
+        } else {
+          // เพิ่มรายการใหม่
+          return [newItem, ...prevItems];
+        }
+      });
+    }
+  }, [newItem]);
   const navigate = useNavigate();
   const AddNewItem = () => {
     navigate("/app/manageItem/addNewItem");
   }
 
+  const DeleteItem = (key:any) =>{
+    setItems((prevItems) => prevItems.filter((item) => item.key !== key));
+  }
+  const EditItem = (key: any) => {
+    const itemToEdit = items.find((item) => item.key === key); // ค้นหารายการที่ต้องการแก้ไข
+    if (itemToEdit) {
+      navigate("/app/manageItem/addNewItem", { state: { itemToEdit } }); // ส่งข้อมูลไปยัง AddNewItem
+    }
+  };
+
   const column = [
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-    },
-    {
-      title: "Price",
-      dataIndex: "price",
-      key: "price",
-    },
-    {
-      title: "Action",
-      dataIndex: "",
-      key: "x",
-      render: () => (
-        <Space size="middle">
-          <a>แก้ไขข้อมูล</a>
-          <a>ลบข้อมูล</a>
-        </Space>
-      ),
-    },
-  ];
+  {
+    title: "Name",
+    dataIndex: "name",
+    key: "name",
+  },
+  {
+    title: "Price",
+    dataIndex: "price",
+    key: "price",
+  },
+  {
+    title: "Catagory",
+    dataIndex: "catagory",
+    key: "catagory",
+  },
+  {
+    title: "Action",
+    dataIndex: "",
+    key: "x",
+    render: (record:any) => (
+      <Space size="middle">
+        <a onClick={() => EditItem(record.key)}>แก้ไขข้อมูล</a>
+        <a onClick={() => DeleteItem(record.key)}>ลบข้อมูล</a>
+      </Space>
+    ),
+  },
+];
   return (
     <>
       <div
