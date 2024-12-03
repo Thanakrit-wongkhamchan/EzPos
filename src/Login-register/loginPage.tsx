@@ -1,6 +1,6 @@
 import  './LoginPage.css'
 import { useNavigate } from 'react-router-dom';
-import { useState,useEffect } from "react";
+import { useState } from "react";
 import { FormEvent } from 'react';
 
 const LoginPage= () =>{

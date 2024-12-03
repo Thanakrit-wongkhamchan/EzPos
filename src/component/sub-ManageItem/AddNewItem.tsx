@@ -48,6 +48,7 @@ const AddNewItem = () => {
     <>
       <h3> รายละเอียดรายการสินค้า</h3>
       <Form layout="vertical" onFinish={handleSubmit} autoComplete="off">
+        
         <Form.Item rules={[{ required: true, message: "กรุณาใส่ชื่อสินค้า" }]}>
           <label>ชื่อรายการ</label>
           <input
@@ -57,13 +58,13 @@ const AddNewItem = () => {
             value={itemName}
           />
         </Form.Item>
+        
         <FormItem>
           <label>แคตตากอรี่</label>
           <Space wrap>
             <Select
               defaultValue="lucy"
               style={{ width: 120 }}
-        
               options={[
                 { value: "jack", label: "เครื่องดื่มเย็น" },
                 { value: "lucy", label: "เครื่องดื่มร้อน" },
@@ -74,6 +75,7 @@ const AddNewItem = () => {
             />
           </Space>
         </FormItem>
+        
         <Form.Item rules={[{ required: true, message: "กรุณาใส่ราคาสินค้า" }]}>
           <label>ราคารายการ</label>
           <input
@@ -107,6 +109,7 @@ const AddNewItem = () => {
             เพิ่มรายการสินค้า
           </Button>
         </Form.Item>
+
       </Form>
     </>
   );

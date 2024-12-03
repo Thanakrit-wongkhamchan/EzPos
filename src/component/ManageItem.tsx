@@ -30,6 +30,7 @@ const ManageItem = () => {
       });
     }
   }, [newItem]);
+  
   const navigate = useNavigate();
   const AddNewItem = () => {
     navigate("/app/manageItem/addNewItem");
